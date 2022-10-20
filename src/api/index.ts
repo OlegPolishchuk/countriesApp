@@ -3,7 +3,9 @@ import { Country } from 'types';
 
 export class API {
   static fetchAllCountries(): any {
-    return instance.get<Country[]>('all').then(res => res.data);
+    return instance
+      .get<Country[]>('all?fields=name,capital,flags,population,region')
+      .then(res => res.data);
   }
 
   static searchByCountry(country: string): any {

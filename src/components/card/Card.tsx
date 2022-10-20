@@ -4,16 +4,22 @@ import styled from 'styled-components';
 
 import { ReturnComponentType } from 'types';
 
+interface Info {
+  title: string;
+  description: string;
+}
+
 interface Props {
+  img: string;
   name: string;
-  info: [{ title: string; description: string }];
+  info: Info[];
   onClick: () => void;
 }
 
-export const Card = ({ info, name, onClick }: Props): ReturnComponentType => {
+export const Card = ({ img, info, name, onClick }: Props): ReturnComponentType => {
   return (
     <Wrapper onClick={onClick}>
-      <CardImage />
+      <CardImage src={img} alt={name} />
       <CardBody>
         <CardTitle>{name}</CardTitle>
         <CardList>
@@ -28,14 +34,46 @@ export const Card = ({ info, name, onClick }: Props): ReturnComponentType => {
   );
 };
 
-const Wrapper = styled.article``;
+const Wrapper = styled.article`
+  border-radius: var(--radii);
+  background-color: var(--colors-ui-base);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  overflow: hidden;
+`;
 
-const CardImage = styled.img``;
+const CardImage = styled.img`
+  display: block;
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  object-position: center;
 
-const CardBody = styled.div``;
+  box-shadow: var(--shadow);
+`;
 
-const CardTitle = styled.h3``;
+const CardBody = styled.div`
+  padding: 1rem 1.5rem;
+`;
 
-const CardList = styled.ul``;
+const CardTitle = styled.h3`
+  margin: 0;
+  font-size: var(--fs-md);
+  font-weight: var(--fw-bold);
+`;
 
-const CardListItem = styled.li``;
+const CardList = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 1rem 0;
+`;
+
+const CardListItem = styled.li`
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  font-weight: var(--fw-light);
+
+  & > b {
+    font-weight: var(--fw-bold);
+  }
+`;
