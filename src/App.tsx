@@ -1,59 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
-import { API } from 'api';
-import { Controls, Header } from 'components';
-import { Card } from 'components/card/Card';
-import { List } from 'components/list/List';
+import { Routes, Route } from 'react-router-dom';
+
+import { Header } from 'components';
 import { Main } from 'components/main/Main';
+import { Details } from 'pages/details/Details';
+import { HomePage } from 'pages/homePage/HomePage';
+import { NotFound } from 'pages/notFound/NotFound';
 import { Country, ReturnComponentType } from 'types';
 
 const App = (): ReturnComponentType => {
   const [countries, setCountries] = useState<Country[]>([]);
 
   console.log('app rendered');
-  console.log(countries);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await API.fetchAllCountries();
-
-        setCountries(res);
-      } catch (e) {
-        console.log(e);
-      }
-    })();
-  }, []);
 
   return (
     <>
       <Header />
       <Main>
-        <Controls />
-        <List>
-          {countries.map(country => {
-            const countryInfo = {
-              img: country.flags.png,
-              name: country.name,
-              info: [
-                {
-                  title: 'Population',
-                  description: country.population.toLocaleString(),
-                },
-                {
-                  title: 'Region',
-                  description: country.region,
-                },
-                {
-                  title: 'Capital',
-                  description: country.capital,
-                },
-              ],
-            };
-
-            return <Card key={country.name} {...countryInfo} onClick={() => {}} />;
-          })}
-        </List>
+        <Routes>
+          <Route
+            path="/"
+            element={<HomePage countries={countries} setCountries={setCountries} />}
+          />
+          <Route path="/country/:name" element={<Details />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </Main>
     </>
   );

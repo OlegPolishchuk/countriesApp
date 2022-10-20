@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 
@@ -30,7 +30,11 @@ const Wrapper = styled.div`
   }
 `;
 
-export const Controls = (): ReturnComponentType => {
+interface Props {
+  onSearch: (search: string, region: string | null) => void;
+}
+
+export const Controls = ({ onSearch }: Props): ReturnComponentType => {
   const [search, setSearch] = useState('');
   const [region, setRegion] = useState<IOption | null>(null);
 
@@ -39,6 +43,12 @@ export const Controls = (): ReturnComponentType => {
 
     setRegion(value);
   };
+
+  useEffect(() => {
+    const regionValue = region?.value || null;
+
+    onSearch(search, regionValue);
+  }, [search, region]);
 
   return (
     <Wrapper>
