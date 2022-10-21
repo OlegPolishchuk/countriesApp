@@ -43,7 +43,7 @@ export const Details = (): ReturnComponentType => {
         console.log(e);
       }
     })();
-  }, []);
+  }, [name]);
 
   return (
     <>

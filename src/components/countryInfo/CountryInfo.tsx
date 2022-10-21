@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { API } from 'api';
@@ -10,6 +11,8 @@ interface Props {
 }
 
 export const CountryInfo = ({ country }: Props): ReturnComponentType => {
+  const navigate = useNavigate();
+
   const [neighbors, setNeighbors] = useState([] as string[]);
 
   const {
@@ -89,7 +92,9 @@ export const CountryInfo = ({ country }: Props): ReturnComponentType => {
         ) : (
           <TagGroup>
             {neighbors.map(border => (
-              <Tag key={border}>{border}</Tag>
+              <Tag key={border} onClick={() => navigate(`/country/${border}`)}>
+                {border}
+              </Tag>
             ))}
           </TagGroup>
         )}
