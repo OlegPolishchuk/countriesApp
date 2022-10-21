@@ -25,3 +25,7 @@ export interface Languages {
   name: string;
   nativeName: string;
 }
+
+export interface CountryNeighbors {
+  name: string;
+}

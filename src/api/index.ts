@@ -1,5 +1,5 @@
 import { instance } from 'api/config';
-import { Country, CountryDetails } from 'types';
+import { Country, CountryDetails, CountryNeighbors } from 'types';
 
 export class API {
   static fetchAllCountries(): Promise<Country[]> {
@@ -12,15 +12,13 @@ export class API {
     return instance.get<CountryDetails[]>(`name/${country}`).then(res => res.data[0]);
   }
 
-  static filterByCode(codes: string[]): Promise<{ name: string }[]> {
+  static filterByCode(codes: string[]): Promise<CountryNeighbors[]> {
     return instance
       .get('alpha', {
         params: {
           codes: codes.join(','),
         },
       })
-      .then(res => {
-        return res.data;
-      });
+      .then(res => res.data);
   }
 }
