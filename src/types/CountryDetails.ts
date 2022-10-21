@@ -9,7 +9,7 @@ export interface CountryDetails {
   topLevelDomain: string[];
   currencies: Currency[];
   languages: Languages[];
-  borders: string[];
+  borders: string[] | null;
   independent: boolean;
 }
 

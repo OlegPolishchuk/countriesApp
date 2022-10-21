@@ -20,7 +20,7 @@ export const Details = (): ReturnComponentType => {
     population: 0,
     independent: true,
     currencies: [],
-    borders: [],
+    borders: null,
     languages: [],
     nativeName: '',
     subregion: '',
@@ -37,7 +37,6 @@ export const Details = (): ReturnComponentType => {
         if (name) {
           const data = await API.searchByCountry(name);
 
-          console.log(data);
           setCountry(data);
         }
       } catch (e) {
@@ -48,10 +47,10 @@ export const Details = (): ReturnComponentType => {
 
   return (
     <>
-      <Button>
-        <IoArrowBack onClick={handleMoveBack} /> Back
+      <Button onClick={handleMoveBack}>
+        <IoArrowBack /> Back
       </Button>
-      {country && <CountryInfo country={country} push={() => {}} />}
+      {country && <CountryInfo country={country} />}
     </>
   );
 };

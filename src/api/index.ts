@@ -12,13 +12,15 @@ export class API {
     return instance.get<CountryDetails[]>(`name/${country}`).then(res => res.data[0]);
   }
 
-  static filterByCode(codes: any): Promise<Country[]> {
+  static filterByCode(codes: string[]): Promise<{ name: string }[]> {
     return instance
-      .get<Country[]>('alpha', {
+      .get('alpha', {
         params: {
-          codes: codes.json(','),
+          codes: codes.join(','),
         },
       })
-      .then(res => res.data);
+      .then(res => {
+        return res.data;
+      });
   }
 }

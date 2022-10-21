@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 
+import { API } from 'api';
 import { CountryDetails, ReturnComponentType } from 'types';
 
 interface Props {
   country: CountryDetails;
-  push: () => void;
 }
 
-export const CountryInfo = ({ country, push }: Props): ReturnComponentType => {
+export const CountryInfo = ({ country }: Props): ReturnComponentType => {
+  const [neighbors, setNeighbors] = useState([] as string[]);
+
   const {
     name,
     nativeName,
@@ -24,7 +26,19 @@ export const CountryInfo = ({ country, push }: Props): ReturnComponentType => {
     borders,
   } = country;
 
-  console.log(push);
+  useEffect(() => {
+    if (borders) {
+      (async () => {
+        try {
+          const data = await API.filterByCode(borders);
+
+          setNeighbors(data.map(country => country.name));
+        } catch (e) {
+          console.log(e);
+        }
+      })();
+    }
+  }, [borders]);
 
   return (
     <Wrapper>
@@ -70,11 +84,11 @@ export const CountryInfo = ({ country, push }: Props): ReturnComponentType => {
       </ListGroup>
       <Meta>
         <b>Border Countries</b>
-        {!borders.length ? (
+        {!borders ? (
           <span>There is no border countries</span>
         ) : (
           <TagGroup>
-            {borders.map(border => (
+            {neighbors.map(border => (
               <Tag key={border}>{border}</Tag>
             ))}
           </TagGroup>
