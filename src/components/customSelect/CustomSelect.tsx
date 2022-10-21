@@ -35,10 +35,10 @@ export const CustomSelect = styled(Select).attrs({
   }
 
   & * {
-    color: var(--colors-text) important;
+    color: var(--colors-text) !important;
   }
 
-  & > div[id] {
+  & > div {
     background-color: var(--colors-ui-base);
   }
 `;
