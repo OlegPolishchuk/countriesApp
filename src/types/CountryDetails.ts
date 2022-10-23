@@ -11,6 +11,7 @@ export interface CountryDetails {
   languages: Languages[];
   borders: string[] | null;
   independent: boolean;
+  latlng: number[];
 }
 
 export interface Currency {

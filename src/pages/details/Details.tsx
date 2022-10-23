@@ -25,6 +25,7 @@ export const Details = (): ReturnComponentType => {
     nativeName: '',
     subregion: '',
     topLevelDomain: [],
+    latlng: [],
   });
 
   const handleMoveBack = (): void => {

@@ -10,26 +10,25 @@ interface Props {
   borders: string[];
 }
 
-export const NeighborCountries = ({
-  isBorderExist,
-  borders,
-}: Props): ReturnComponentType => {
-  const navigate = useNavigate();
+export const NeighborCountries = React.memo(
+  ({ isBorderExist, borders }: Props): ReturnComponentType => {
+    const navigate = useNavigate();
 
-  return (
-    <Meta>
-      <b>Border Countries</b>
-      {!isBorderExist ? (
-        <span>There is no border countries</span>
-      ) : (
-        <TagGroup>
-          {borders.map(border => (
-            <Tag key={border} onClick={() => navigate(`/country/${border}`)}>
-              {border}
-            </Tag>
-          ))}
-        </TagGroup>
-      )}
-    </Meta>
-  );
-};
+    return (
+      <Meta>
+        <b>Border Countries</b>
+        {!isBorderExist ? (
+          <span>There is no border countries</span>
+        ) : (
+          <TagGroup>
+            {borders.map(border => (
+              <Tag key={border} onClick={() => navigate(`/country/${border}`)}>
+                {border}
+              </Tag>
+            ))}
+          </TagGroup>
+        )}
+      </Meta>
+    );
+  },
+);

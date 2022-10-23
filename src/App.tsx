@@ -12,8 +12,6 @@ import { Country, ReturnComponentType } from 'types';
 const App = (): ReturnComponentType => {
   const [countries, setCountries] = useState<Country[]>([]);
 
-  console.log('app rendered');
-
   return (
     <>
       <Header />
